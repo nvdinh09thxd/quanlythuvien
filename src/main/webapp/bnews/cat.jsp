@@ -7,12 +7,12 @@
 </div>
 <div class="content-right fr">
 	<%
-		int idCat = Integer.parseInt(request.getParameter("cid"));
-		Category itemCat = CatDao.getItem(idCat);
-		String catName = "";
-		if(itemCat != null){
-			catName = itemCat.getName();
-		}
+	int idCat = Integer.parseInt(request.getParameter("cid"));
+			Category2 itemCat = CatDao.getItem(idCat);
+			String catName = "";
+			if(itemCat != null){
+		catName = itemCat.getName();
+			}
 	%>
 	<h3><%=catName%></h3>
 	<div class="main-content items-new">

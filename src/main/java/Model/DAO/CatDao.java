@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import Model.Bean.Category;
+import Model.Bean.Category2;
 import util.ConnectDBNews;
 
 public class CatDao {
@@ -16,8 +16,8 @@ public class CatDao {
 	private static PreparedStatement pst;
 	private static ResultSet rs;
 
-	public static ArrayList<Category> getItems() {
-		ArrayList<Category> listItems = new ArrayList<>();
+	public static ArrayList<Category2> getItems() {
+		ArrayList<Category2> listItems = new ArrayList<>();
 		conn = ConnectDBNews.getConnection();
 		try {
 			String sql = "SELECT * FROM category";
@@ -26,7 +26,7 @@ public class CatDao {
 			while (rs.next()) {
 				int id = rs.getInt("id");
 				String name = rs.getString("name");
-				Category objItem = new Category(id, name);
+				Category2 objItem = new Category2(id, name);
 				listItems.add(objItem);
 			}
 
@@ -38,8 +38,8 @@ public class CatDao {
 		return listItems;
 	}
 
-	public static Category getItem(int idCat) {
-		Category item = null;
+	public static Category2 getItem(int idCat) {
+		Category2 item = null;
 		conn = ConnectDBNews.getConnection();
 		try {
 			String sql = "SELECT * FROM category WHERE id = ?";
@@ -49,7 +49,7 @@ public class CatDao {
 			if (rs.next()) {
 				int id = rs.getInt("id");
 				String name = rs.getString("name");
-				item = new Category(id, name);
+				item = new Category2(id, name);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
