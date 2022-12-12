@@ -1,10 +1,12 @@
 package Model.DAO;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -67,11 +69,12 @@ public class BookDAO {
 			e.printStackTrace();
 		}
 		int result = 0;
-		String insert = "INSERT INTO Book (name, amount, image) VALUES (?, ?, ?)";
+		String insert = "INSERT INTO Book (name, category_id, amount, image) VALUES (?,?, ?, ?)";
 		preSt = (PreparedStatement) conn.prepareStatement(insert);
 		preSt.setString(1, book.getName());
-		preSt.setString(2, book.getAmount());
-		preSt.setString(3, book.getImage());
+		preSt.setString(2, Integer.toString(book.getCategory().getId()));
+		preSt.setString(3, book.getAmount());
+		preSt.setString(4, book.getImage());
 		result = preSt.executeUpdate();
 		System.out.println("Ketqua" + result);
 		return result;

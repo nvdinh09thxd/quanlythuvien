@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="header.jsp"%>
@@ -44,7 +45,7 @@
 										class="form-control" id="name" name="name"
 										placeholder="Nhập tên sách">
 								</div>
-								<%-- <div class="form-group">
+								<div class="form-group">
 									<label>Thể loại</label> <select name="category" id="category"
 										class="form-control" required>
 										<!-- <option value="">Chọn 1 thể loại</option> -->
@@ -52,7 +53,7 @@
 											<option value="${Integer.toString(category.getId())}">${category.getName()}</option>
 										</c:forEach>
 									</select>
-								</div> --%>
+								</div>
 								<div class="form-group">
 									<label>Số lượng</label> <input type="number"
 										class="form-control" id="count" name="count" min="1" value="1">

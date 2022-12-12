@@ -55,9 +55,6 @@ public class AddBook extends HttpServlet {
 
 			try {
 				list = categoryBO.listCategory();
-				for (Category category : list) {
-					System.out.println(category.getName());
-				}
 			} catch (Exception e) {
 				e.printStackTrace();
 				errorString = e.getMessage();
