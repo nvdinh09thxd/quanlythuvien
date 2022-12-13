@@ -1,6 +1,7 @@
-package Model.Controller;
+package Controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -10,21 +11,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Model.BO.ReaderBO;
-import Model.Bean.Reader;
+import Model.BO.CategoryBO;
+import Model.Bean.Category;
 
 /**
- * Servlet implementation class SearchReader
+ * Servlet implementation class ManageCategory
  */
-@WebServlet("/SearchReader")
-public class SearchReader extends HttpServlet {
+@WebServlet("/ManageCategory")
+public class ManageCategory extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private ReaderBO readerBO = new ReaderBO();
+	private CategoryBO categoryBO = new CategoryBO();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public SearchReader() {
+	public ManageCategory() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -35,30 +36,17 @@ public class SearchReader extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		if (request.getSession().getAttribute("User") == null) {
 			String errorString = "Bạn cần đăng nhập trước";
 			request.setAttribute("errorString", errorString);
 			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/login.jsp");
 			dispatcher.forward(request, response);
 		} else {
-			String status = (String) request.getParameter("status");
-			String data_search = (String) request.getParameter("data_search");
-			if (status == null) {
-				status = "0";
-				request.getSession().setAttribute("Check", "ManageReader_0");
-			} else {
-				status = "1";
-				request.getSession().setAttribute("Check", "ManageReader_1");
-			}
-			System.out.println(status);
 			String errorString = null;
-			ArrayList<Reader> list = null;
-//		if(status.equals("1")==false) {
-//			status="0";
-//		}
+			ArrayList<Category> list = null;
+
 			try {
-				list = readerBO.getListSearch(data_search, status);
+				list = categoryBO.listCategory();
 			} catch (Exception e) {
 				e.printStackTrace();
 				errorString = e.getMessage();
@@ -67,17 +55,15 @@ public class SearchReader extends HttpServlet {
 				errorString = (String) request.getAttribute("errorString");
 			}
 			// Lưu thông tin vào request attribute trước khi forward sang views.
-			request.setAttribute("readerList", list);
-
-			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/manage_reader.jsp");
+			request.setAttribute("errorString", errorString);
+			request.setAttribute("categoryList", list);
+			request.getSession().setAttribute("Check", "ManageCategory");
+			// Forward sang /WEB-INF/views/productListView.jsp
+			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/manage_category.jsp");
 			dispatcher.forward(request, response);
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub

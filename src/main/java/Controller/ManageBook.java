@@ -1,4 +1,4 @@
-package Model.Controller;
+package Controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,23 +11,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Model.BO.BookBO;
-import Model.BO.ReaderBO;
 import Model.Bean.Book;
 import Model.Bean.Category;
-import Model.Bean.Reader;
 
 /**
  * Servlet implementation class ManageBook
  */
-@WebServlet("/ManageReader")
-public class ManageReader extends HttpServlet {
+@WebServlet("/ManageBook")
+public class ManageBook extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private ReaderBO readerBO = new ReaderBO();
+	private BookBO bookBO = new BookBO();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ManageReader() {
+	public ManageBook() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -39,34 +37,17 @@ public class ManageReader extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-//		if (request.getSession().getAttribute("User") == null) {
-//			String errorString = "Bạn cần đăng nhập trước";
-//			request.setAttribute("errorString", errorString);
-//			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/login.jsp");
-//			dispatcher.forward(request, response);
-//		} else {
+		
 		if (request.getSession().getAttribute("User") == null) {
 			String errorString = "Bạn cần đăng nhập trước";
 			request.setAttribute("errorString", errorString);
 			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/login.jsp");
 			dispatcher.forward(request, response);
 		} else {
-			String status = (String) request.getParameter("status");
-			if (status == null) {
-				status = "0";
-				request.getSession().setAttribute("Check", "ManageReader_0");
-			} else {
-				status = "1";
-				request.getSession().setAttribute("Check", "ManageReader_1");
-			}
-			System.out.println(status);
 			String errorString = null;
-			ArrayList<Reader> list = null;
-//		if(status.equals("1")==false) {
-//			status="0";
-//		}
+			ArrayList<Book> list = null;
 			try {
-				list = readerBO.getListReader(status);
+				list = bookBO.listBook();
 			} catch (Exception e) {
 				e.printStackTrace();
 				errorString = e.getMessage();
@@ -75,12 +56,14 @@ public class ManageReader extends HttpServlet {
 				errorString = (String) request.getAttribute("errorString");
 			}
 			// Lưu thông tin vào request attribute trước khi forward sang views.
-			request.setAttribute("readerList", list);
-			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/manage_reader.jsp");
+			request.setAttribute("errorString", errorString);
+			request.setAttribute("bookList", list);
+			request.getSession().setAttribute("Check", "ManageBook");
+			// Forward sang /WEB-INF/views/productListView.jsp
+			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/manage_book.jsp");
 			dispatcher.forward(request, response);
 		}
 	}
-//	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse

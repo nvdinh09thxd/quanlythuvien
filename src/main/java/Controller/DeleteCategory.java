@@ -1,4 +1,4 @@
-package Model.Controller;
+package Controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -10,21 +10,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Model.BO.BookBO;
 import Model.BO.CategoryBO;
 
 /**
  * Servlet implementation class DeleteCategory
  */
-@WebServlet("/DeleteBook")
-public class DeleteBook extends HttpServlet {
+@WebServlet("/DeleteCategory")
+public class DeleteCategory extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private BookBO bookBO = new BookBO();
+	private CategoryBO categoryBO = new CategoryBO();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public DeleteBook() {
+	public DeleteCategory() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -37,27 +36,23 @@ public class DeleteBook extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String id = (String) request.getParameter("id");
-
-		if (id == null) {
-			boolean result;
-			try {
-				result = bookBO.deleteAllBook();
-			} catch (ClassNotFoundException | SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		boolean result;
+		try {
+			result = categoryBO.deleteCategory(id);
+			System.out.println("Ket qua"+result);
+			if (result == true) {
+				request.setAttribute("errorString", "Đã xóa thành công");
+			} else {
+				request.setAttribute("errorString", "Lỗi cơ sở dữ liệu");
 			}
-		} else {
-			boolean result;
-			try {
-				result = bookBO.deleteBook(id);
-			} catch (ClassNotFoundException | SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		request.setAttribute("errorString", "Đã xóa thành công");
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/ManageBook");
-		dispatcher.forward(request, response);
+
+//		RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/ManageCategory");
+//		dispatcher.forward(request, response);
+		response.sendRedirect(request.getContextPath() + "/ManageCategory");
 	}
 
 	/**

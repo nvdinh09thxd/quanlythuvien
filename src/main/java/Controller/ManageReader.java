@@ -1,4 +1,4 @@
-package Model.Controller;
+package Controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,20 +11,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Model.BO.BookBO;
+import Model.BO.ReaderBO;
 import Model.Bean.Book;
+import Model.Bean.Category;
+import Model.Bean.Reader;
 
 /**
- * Servlet implementation class SearchBook
+ * Servlet implementation class ManageBook
  */
-@WebServlet("/SearchBook")
-public class SearchBook extends HttpServlet {
+@WebServlet("/ManageReader")
+public class ManageReader extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private BookBO bookBO = new BookBO();
+	private ReaderBO readerBO = new ReaderBO();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public SearchBook() {
+	public ManageReader() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -36,19 +39,34 @@ public class SearchBook extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
+//		if (request.getSession().getAttribute("User") == null) {
+//			String errorString = "Bạn cần đăng nhập trước";
+//			request.setAttribute("errorString", errorString);
+//			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/login.jsp");
+//			dispatcher.forward(request, response);
+//		} else {
 		if (request.getSession().getAttribute("User") == null) {
 			String errorString = "Bạn cần đăng nhập trước";
 			request.setAttribute("errorString", errorString);
 			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/login.jsp");
 			dispatcher.forward(request, response);
 		} else {
-			request.setCharacterEncoding("UTF-8");
-			String data_search = request.getParameter("data_search");
+			String status = (String) request.getParameter("status");
+			if (status == null) {
+				status = "0";
+				request.getSession().setAttribute("Check", "ManageReader_0");
+			} else {
+				status = "1";
+				request.getSession().setAttribute("Check", "ManageReader_1");
+			}
+			System.out.println(status);
 			String errorString = null;
-			ArrayList<Book> list = null;
-
+			ArrayList<Reader> list = null;
+//		if(status.equals("1")==false) {
+//			status="0";
+//		}
 			try {
-				list = bookBO.searchBook(data_search);
+				list = readerBO.getListReader(status);
 			} catch (Exception e) {
 				e.printStackTrace();
 				errorString = e.getMessage();
@@ -56,16 +74,13 @@ public class SearchBook extends HttpServlet {
 			if (request.getAttribute("errorString") != null) {
 				errorString = (String) request.getAttribute("errorString");
 			}
-			errorString="Kết quả tìm kiếm cho từ khóa '"+data_search+ "'";
 			// Lưu thông tin vào request attribute trước khi forward sang views.
-			request.setAttribute("errorString", errorString);
-			request.setAttribute("bookList", list);
-
-			// Forward sang /WEB-INF/views/productListView.jsp
-			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/manage_book.jsp");
+			request.setAttribute("readerList", list);
+			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/manage_reader.jsp");
 			dispatcher.forward(request, response);
 		}
 	}
+//	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
