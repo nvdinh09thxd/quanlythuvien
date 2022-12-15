@@ -1,7 +1,5 @@
 package Model.Bean;
 
-import java.util.Date;
-
 public class Book {
 	private String id;
 	private String name;

@@ -21,8 +21,8 @@ public class ReaderDAO {
 	PreparedStatement preSt = null;
 	CategoryBO categoryBO = new CategoryBO();
 
-
-	public int insertReader(String name, String identify, String book_id, Timestamp end_day) throws SQLException, ClassNotFoundException {
+	public int insertReader(String name, String identify, String book_id, Timestamp end_day)
+			throws SQLException, ClassNotFoundException {
 		if (conn == null)
 			conn = ConnectDatabase.getMySQLConnection();
 		try {
@@ -50,7 +50,7 @@ public class ReaderDAO {
 		PreparedStatement pstm = (PreparedStatement) conn.prepareStatement(sql);
 //		pstm.setBoolean(1, true);
 		pstm.setInt(1, Integer.parseInt(status));
-		
+
 		ResultSet rs = pstm.executeQuery();
 		while (rs.next()) {
 			String id = rs.getString("id");
@@ -65,7 +65,7 @@ public class ReaderDAO {
 			Book book = new Book();
 			try {
 				BookBO bookBO = new BookBO();
-				book =  bookBO.findBook(book_id);
+				book = bookBO.findBook(book_id);
 			} catch (ClassNotFoundException | SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -83,8 +83,9 @@ public class ReaderDAO {
 		}
 		return list;
 	}
+
 	public int updateStatus(String id) throws SQLException, ClassNotFoundException {
-		
+
 		int result = 0;
 		if (conn == null)
 			conn = ConnectDatabase.getMySQLConnection();
@@ -94,6 +95,7 @@ public class ReaderDAO {
 		result = pstm.executeUpdate();
 		return result;
 	}
+
 	public int deleteAllReader() throws ClassNotFoundException, SQLException {
 		int result = 0;
 		if (conn == null)
@@ -103,6 +105,7 @@ public class ReaderDAO {
 		result = pstm.executeUpdate();
 		return result;
 	}
+
 	public int deleteReader(String id) throws ClassNotFoundException, SQLException {
 		int result = 0;
 		if (conn == null)
@@ -113,6 +116,7 @@ public class ReaderDAO {
 		result = pstm.executeUpdate();
 		return result;
 	}
+
 	public int deleteReaderBook(String book_id) throws ClassNotFoundException, SQLException {
 		int result = 0;
 		if (conn == null)
@@ -123,7 +127,7 @@ public class ReaderDAO {
 		result = pstm.executeUpdate();
 		return result;
 	}
-	
+
 	public int deleteReaderBookCategory(String category_id) throws ClassNotFoundException, SQLException {
 		int result = 0;
 		if (conn == null)
@@ -135,10 +139,12 @@ public class ReaderDAO {
 		result = pstm.executeUpdate();
 		return result;
 	}
-	public ArrayList<Reader> getListSearch(String data_search, String status) throws SQLException, ClassNotFoundException {
+
+	public ArrayList<Reader> getListSearch(String data_search, String status)
+			throws SQLException, ClassNotFoundException {
 		// TODO Auto-generated method stub
-		data_search="%"+data_search+"%";
-		System.out.println(data_search+status+"");
+		data_search = "%" + data_search + "%";
+		System.out.println(data_search + status + "");
 		if (conn == null)
 			conn = ConnectDatabase.getMySQLConnection();
 		ArrayList<Reader> list = new ArrayList<Reader>();
@@ -147,7 +153,7 @@ public class ReaderDAO {
 		pstm.setString(1, data_search);
 		pstm.setInt(2, Integer.parseInt(status));
 		ResultSet rs = pstm.executeQuery();
-		
+
 		while (rs.next()) {
 			System.out.println("Daaa");
 			String id = rs.getString("id");
@@ -162,7 +168,7 @@ public class ReaderDAO {
 			Book book = new Book();
 			try {
 				BookBO bookBO = new BookBO();
-				book =  bookBO.findBook(book_id);
+				book = bookBO.findBook(book_id);
 			} catch (ClassNotFoundException | SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

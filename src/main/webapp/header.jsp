@@ -76,7 +76,7 @@
 		<!-- Main Sidebar Container -->
 		<aside class="main-sidebar sidebar-dark-primary elevation-4">
 			<a href="${pageContext.request.contextPath}/UserManual" class="brand-link"> <img
-				src="Resources/img/AdminLTELogo.png" alt="AdminLTE Logo"
+				src="Resources/img/icon.jpg" alt="AdminLTE Logo"
 				class="brand-image img-circle elevation-3" style="opacity: .8">
 				<span class="brand-text font-weight-light">Quán lý thư viện</span>
 			</a>

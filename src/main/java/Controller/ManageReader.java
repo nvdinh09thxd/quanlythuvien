@@ -10,10 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Model.BO.BookBO;
 import Model.BO.ReaderBO;
-import Model.Bean.Book;
-import Model.Bean.Category;
 import Model.Bean.Reader;
 
 /**

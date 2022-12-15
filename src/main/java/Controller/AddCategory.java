@@ -1,7 +1,6 @@
 package Controller;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import Model.BO.CategoryBO;
 import Model.Bean.Category;
-import Model.DAO.CategoryDAO;
 
 /**
  * Servlet implementation class AddCategory

@@ -17,7 +17,6 @@ import Model.BO.GetCookie;
 import Model.Bean.User;
 import Model.DAO.UserDAO;
 
-
 @WebFilter(filterName = "cookieFilter", urlPatterns = { "/*" })
 public class CookieFilter implements Filter {
 

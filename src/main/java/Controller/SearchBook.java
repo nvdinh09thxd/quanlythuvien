@@ -56,7 +56,7 @@ public class SearchBook extends HttpServlet {
 			if (request.getAttribute("errorString") != null) {
 				errorString = (String) request.getAttribute("errorString");
 			}
-			errorString="Kết quả tìm kiếm cho từ khóa '"+data_search+ "'";
+			errorString = "Kết quả tìm kiếm cho từ khóa '" + data_search + "'";
 			// Lưu thông tin vào request attribute trước khi forward sang views.
 			request.setAttribute("errorString", errorString);
 			request.setAttribute("bookList", list);

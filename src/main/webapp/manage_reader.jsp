@@ -28,12 +28,11 @@
 						<div class="card-header">
 							<c:if
 								test="${sessionScope.Check.toString().equals('ManageReader_0')}">
-								<h3 class="card-title">Danh sách sách những người đang mượn
-									sách</h3>
+								<h3 class="card-title">Danh sách những người đang mượn sách</h3>
 							</c:if>
 							<c:if
 								test="${sessionScope.Check.toString().equals('ManageReader_1')}">
-								<h3 class="card-title">Danh sách lịch sử mượn sách sách</h3>
+								<h3 class="card-title">Danh sách lịch sử mượn sách</h3>
 							</c:if>
 
 

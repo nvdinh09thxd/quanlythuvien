@@ -3,7 +3,6 @@ package Controller;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -39,7 +38,7 @@ public class DeleteCategory extends HttpServlet {
 		boolean result;
 		try {
 			result = categoryBO.deleteCategory(id);
-			System.out.println("Ket qua"+result);
+			System.out.println("Ket qua" + result);
 			if (result == true) {
 				request.setAttribute("errorString", "Đã xóa thành công");
 			} else {

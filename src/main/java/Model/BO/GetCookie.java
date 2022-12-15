@@ -7,13 +7,14 @@ import javax.servlet.http.HttpServletResponse;
 import Model.Bean.User;
 
 public class GetCookie {
-	
-	// Lưu thông tin ngư�?i dùng vào Cookie.
+
+	// Lưu thông tin ngư�?i dùng vào Cookie.
 	private static final String ATT_NAME_USER_NAME = "ATTRIBUTE_FOR_STORE_USER_NAME_IN_COOKIE";
+
 	public static void storeUserCookie(HttpServletResponse response, User user) {
 		System.out.println("Store user cookie");
 		Cookie cookieUserName = new Cookie(ATT_NAME_USER_NAME, user.getUsername());
-		// 1 ngày (�?ã đổi ra giây)
+		// 1 ngày (đã đổi ra giây)
 		cookieUserName.setMaxAge(24 * 60 * 60);
 		response.addCookie(cookieUserName);
 	}
@@ -30,7 +31,7 @@ public class GetCookie {
 		return null;
 	}
 
-	// Xóa Cookie của ngư�?i dùng
+	// Xóa Cookie của người dùng
 	public static void deleteUserCookie(HttpServletResponse response) {
 		Cookie cookieUserName = new Cookie(ATT_NAME_USER_NAME, null);
 		// 0 giây. (Cookie này sẽ hết hiệu lực ngay lập tức)

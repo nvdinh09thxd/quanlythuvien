@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import Model.BO.BookBO;
 import Model.Bean.Book;
-import Model.Bean.Category;
 
 /**
  * Servlet implementation class ManageBook
@@ -37,7 +36,7 @@ public class ManageBook extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+
 		if (request.getSession().getAttribute("User") == null) {
 			String errorString = "Bạn cần đăng nhập trước";
 			request.setAttribute("errorString", errorString);

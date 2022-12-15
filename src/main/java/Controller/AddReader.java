@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import Model.BO.BookBO;
 import Model.BO.ReaderBO;
 import Model.Bean.Book;
-import Model.Bean.Category;
 
 /**
  * Servlet implementation class AddReader
